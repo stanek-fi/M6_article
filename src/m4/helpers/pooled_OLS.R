@@ -1,5 +1,4 @@
 pooled_OLS <- function(xs, k, num_groups = 1, clustering = "random", ...) {
-  # group <- sample(seq_len(num_groups), length(xs), replace = T)
   if(clustering == "random" || num_groups == 1) {
       group <- sample(seq_len(num_groups), length(xs), replace = T)
   }else if (clustering == "sequential") {
@@ -11,7 +10,6 @@ pooled_OLS <- function(xs, k, num_groups = 1, clustering = "random", ...) {
       temp <- tsclust(series = xs, k = num_groups, type = "partitional", preproc = zscore, distance = "sbd", centroid = "shape", ...)
       group <- temp@cluster
   }else if (clustering == "tsfeatures") {
-      # features <- tsfeatures(xs, features = c("entropy", "acf_features"), ...)
       features <- tsfeatures(xs, ...)
       clusters <- kmeans(features, num_groups, iter.max = 1000)
       group <- clusters$cluster
@@ -24,22 +22,8 @@ pooled_OLS <- function(xs, k, num_groups = 1, clustering = "random", ...) {
     })
     XOLS <- do.call(rbind, lapply(temp, function(obj) obj$X))
     yOLS <- do.call(rbind, lapply(temp, function(obj) obj$Y))
-    # if(nrow(XOLS) > ncol(XOLS)) {
     solve(t(XOLS) %*% XOLS) %*% t(XOLS) %*% yOLS
-    # }else{
-      # matrix(NA, nrow = k, ncol=1)
-    # }
   })
-
-  # betas_proper <- Filter(function(mat) !any(is.na(mat)), betas)
-  # mean_beta <- Reduce("+", betas_proper)/length(betas_proper)
-  # betas <- lapply(betas, function(beta) {
-  #   if(any(is.na(beta))) {
-  #     mean_beta
-  #   } else {
-  #     beta
-  #   }
-  # })
 
   predict <- function(fit, X, horizon = 1) {
     betas <- fit$betas

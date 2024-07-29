@@ -1,0 +1,15 @@
+cowplot
+data.table
+doParallel
+forecast
+ggplot2
+ggpmisc
+latex2exp
+M4comp2018
+MASS
+patchwork
+scales
+stringr
+torch
+tsfeatures
+yaml
