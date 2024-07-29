@@ -1,0 +1,53 @@
+stages:
+  m6:
+    cmd:
+    - Rscript src\m6\portfolio_weights.R
+    - Rscript src\m6\quintile_predictions.R
+    - Rscript src\m6\scaling_effects.R
+    deps:
+    - data\m6
+    - src\m6
+    plots:
+    - outputs\m6\portfolio_weights.png
+    - outputs\m6\quintile_predictions.png
+    - outputs\m6\scaling_effects.png
+  sinusoidal:
+    cmd:
+    - Rscript src\sinusoidal\sinusoidal.R
+    deps:
+    - src\sinusoidal\sinusoidal.R
+    - src\sinusoidal\helpers
+    - src\MtMs
+    params:
+    - par.yaml:
+        - sinusoidal
+  m4:
+    cmd:
+    - Rscript src\m4\m4.R
+    deps:
+    - src\m4\m4.R
+    - src\m4\helpers
+    - src\MtMs
+    params:
+    - par.yaml:
+        - m4
+    outs:
+    - models\m4\Yearly.rds
+    - models\m4\Quarterly.rds
+    - models\m4\Monthly.rds
+    - models\m4\Weekly.rds
+  m4_postprocessing:
+    cmd:
+    - Rscript src\m4\m4_postprocessing.R
+    deps:
+    - src\m4\m4_postprocessing.R
+    - models\m4\Yearly.rds
+    - models\m4\Quarterly.rds
+    - models\m4\Monthly.rds
+    - models\m4\Weekly.rds
+    outs:
+    - outputs\m4\effects_Yearly.png
+    - outputs\m4\effects_Quarterly.png
+    - outputs\m4\effects_Monthly.png
+    - outputs\m4\effects_Weekly.png
+    - outputs\m4\losses_table.csv

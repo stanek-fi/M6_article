@@ -1,0 +1,28 @@
+sinusoidal:
+  - seed: 1
+  - M_in: 1000
+  - M_out: 600
+  # - M_out: 10
+  - K_train: [5, 10]
+  - K_validation: 100
+  - base_epochs: 100
+  # - base_epochs: 10
+  - base_minibatch: 100
+  - base_lr: 0.001
+  - mesa_parameter_size: 2
+  - meta_bias: True
+  - meta_dropout_p: 0
+  - mtms_epochs: 100
+  # - mtms_epochs: 3
+  - mtms_minibatch: 10
+  - mtms_lr: 0.001
+  - mesa_epochs: 100
+  - mesa_lr: 1
+m4:
+  - seed: 1
+  - series_included: 1000000 # * number of series included, set to 1000000 to run on full dataset
+  # - series_included: 359 # * number of series included, set to 1000000 to run on full dataset
+  - epochs: 30
+  - minibatch: 1000
+  - lr: 0.001
+  - patience: 10

@@ -1,0 +1,240 @@
+\documentclass[tikz,margin=5pt]{standalone}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{pgfmath}
+
+
+\begin{document}
+
+\def\ii{-8}
+\def\msii{-8}
+% \def\msjj{8}
+\def\msjj{9}
+% \def\msjj{6}
+\def\colflow{black!70}
+\def\colbg{black!10}
+\def\colbase{green!70!black!50}
+\def\colms{red!70!black!50}
+\def\colmt{blue!70!black!50}
+\def\colbasetext{green!70!black!100}
+\def\colmstext{red!70!black!100}
+\def\colmttext{blue!70!black!100}
+% * library(stringr)
+% * str_c(sprintf("%.1f", round(rnorm(6,0,1),1)),collapse=", ")
+\def\xxxxa{{"-0.3", "-0.6", "1.2", "-0.3", "-0.3", "-0.9"}}%
+\def\xxxxb{{"-0.4", "-1.1", "0.8", "-1.1", "-0.4", "-0.3"}}%
+\def\xxxxc{{ "0.4", "-1.7", "1.0", "-0.9", "0.6", "0.5"}}%
+\def\xxxxd{{"-0.9", "0.1", "-1.1", "0.8", "0.3", "0.9"}}%
+\def\xxxxe{{"-0.1", "0.5", "0.4", "-0.5", "0.3", "-0.2"}}%
+\def\qqqqa{{"1", "1", "1", "0", "0", "0", "0", "0", "0"}}%
+\def\qqqqe{{"0", "0", "0", "0", "0", "0", "1", "1", "1"}}%
+\def\mmmm{{"0.8", "0.3", "-0.4", "-0.0", "-0.7", "-1.5", "-0.0", "-0.1", "-0.3", "-0.4", "-0.8", "-0.9", "0.9"}}%
+\def\msms{{"-0.4", "2.3"}}%
+\begin{tikzpicture}[
+    every text node part/.style={align=center},
+    nodes={minimum height = 10mm, minimum width = 10mm, outer sep=0mm, anchor=center, draw},
+    data/.style args={#1}{draw, fill=black!00, label={[text=black]center: \normalsize #1}, minimum height = 5mm, minimum width = 9mm, outer sep=0pt},
+    databeta/.style args={#1}{draw, fill=black!00, label={[text=\colbase]center: \normalsize #1}, minimum height = 5mm, minimum width = 9mm, outer sep=0pt},
+    blank/.style={circle,draw=blue!00,minimum size=0.5cm},
+    % neuron/.style={circle, draw=black, fill=black, minimum size=0.01cm},
+    neuron/.style={circle, draw=black, fill=black, minimum size = 0.001cm, inner sep=0pt},
+    neuron_base/.style={circle, draw=\colbase, fill=white!100, minimum size=0.5cm},
+    neuron_ms/.style={circle, draw=\colms, fill=white!100, minimum size=0.5cm},
+    neuron_mt/.style={circle, draw=\colmt, fill=white!100, minimum size=0.5cm},
+    dots/.style={circle, draw=blue!50!black, minimum size=0.5cm},
+    y=0.6cm,
+    font=\sffamily
+]
+% -- Base model  ----------------------------------------------------------------------------------------------------------------------------------
+% * data
+\draw[rounded corners, draw = black!30, fill=\colbg] (-1-0.4, \ii+0.8) rectangle (6+0.4, \ii-18-0.8+6) {};
+% \foreach \cj in {1,2,3,4,5,6} {
+%     \node[data=\pgfmathparse{\xxxxa[\cj-1]}\pgfmathresult] at (-1+\cj,1-1) {};
+% }
+% \foreach \cj in {1,2,3,4,5,6} {
+%     \node[data=\pgfmathparse{\xxxxb[\cj-1]}\pgfmathresult] at (-1+\cj,1-2) {};
+% }
+\foreach \cj in {1,2,3,4,5,6} {
+    \node[data=\pgfmathparse{\xxxxc[\cj-1]}\pgfmathresult] at (-1+\cj,1-3) {};
+}
+\foreach \cj in {1,2,3,4,5,6} {
+    \node[data=\pgfmathparse{\xxxxd[\cj-1]}\pgfmathresult] at (-1+\cj,1-4) {};
+}
+\foreach \cj in {1,2,3,4,5,6} {
+    \path (-1+\cj,-4) -- (-1+\cj,-5) node [black, font=\large, midway, sloped, draw=black!0] {$\dots$};
+}
+\foreach \ci in {7} {
+    \foreach \cj in {1,2,3,4,5,6} {
+        % \node[data=a] (data\cj) at (-1+\cj,1-\ci) {};
+        \node[data=\pgfmathparse{\xxxxe[\cj-1]}\pgfmathresult] (data\cj) at (-1+\cj,1-\ci) {};
+    }
+}
+
+% *  neurons
+% \foreach \cj in {1,2,3,4,5,6} {
+%     \node[neuron] (a\cj) at (-1+\cj,\ii) {};
+% }
+% \foreach \cj in {1,2,3,4,5,6,7,8} {
+%     \node[neuron_base] (b\cj) at (-2+\cj,\ii-3) {};
+% }
+% \foreach \cj in {1,2,3,4,5,6,7,8} {
+%     \node[neuron_base] (bb\cj) at (-2+\cj,\ii-6) {};
+% }
+% \foreach \cj in {1,2,3,4,5,6} {
+%     \node[neuron_base] (c\cj) at (-1+\cj,\ii-9) {};
+% }
+% \foreach \cj in {1,2,3,4} {
+%     \node[neuron_base] (d\cj) at (\cj,\ii-12) {};
+% }
+% \foreach \cj in {1,2} {
+%     \node[neuron_base] (e\cj) at (1+\cj,\ii-15) {};
+% }
+\foreach \cj in {1,2,3,4,5,6} {
+    \node[neuron] (a\cj) at (-1+\cj,\ii) {};
+}
+\foreach \cj in {1,2,3,4,5,6,7,8} {
+    \node[neuron_base] (b\cj) at (-2+\cj,\ii-3) {};
+}
+\foreach \cj in {2,3,4,5,6,7} {
+    \node[neuron_base] (bb\cj) at (-2+\cj,\ii-6) {};
+}
+\foreach \cj in {2,3} {
+    \node[neuron_base] (c\cj) at (-2+2+\cj,\ii-9) {};
+}
+% \foreach \cj in {1,2,3,4} {
+    % \node[neuron_base] (d\cj) at (\cj,\ii-12) {};
+% }
+% \foreach \cj in {1,2} {
+    % \node[neuron_base] (e\cj) at (1+\cj,\ii-15) {};
+% }
+% \node[neuron_base] (f1) at (2.5,\ii - 18) {};
+\node[neuron_base] (f1) at (2.5,\ii - 12) {};
+\path (2.5+1, \ii-18-0.8+0.8+6) --  (6+0.4+1, \ii-18-0.8+0.8+6) node[midway,draw=none] {base model: \\ $\hat{y} = f(x; \mathbin{\textcolor{\colbasetext}{\beta}}) $};
+
+% *  arrows
+\foreach \cnto in {1,2,3,4,5,6} {
+    \draw[-latex, draw=\colflow] (data\cnto)--(a\cnto);
+}
+\foreach \cnto in {1,2,3,4,5,6} {
+    \foreach \cntt in {1,2,3,4,5,6,7,8} {
+        \draw[-latex, draw=\colbase] (a\cnto)--(b\cntt);
+    }
+}
+\foreach \cnto in {1,2,3,4,5,6,7,8} {
+    \foreach \cntt in {2,3,4,5,6,7} {
+        \draw[-latex, draw=\colbase] (b\cnto)--(bb\cntt);
+    }
+}
+\foreach \cnto in {2,3,4,5,6,7} {
+    \foreach \cntt in {2,3} {
+        \draw[-latex, draw=\colbase] (bb\cnto)--(c\cntt);
+    }
+}
+% \foreach \cnto in {1,2,3,4,5,6} {
+%     \foreach \cntt in {1,2,3,4} {
+%         \draw[-latex, draw=\colbase] (c\cnto)--(d\cntt);
+%     }
+% }
+% \foreach \cnto in {1,2,3,4} {
+%     \foreach \cntt in {1,2} {
+%         \draw[-latex, draw=\colbase] (d\cnto)--(e\cntt);
+%     }
+% }
+\foreach \cnto in {2,3} {
+    \foreach \cntt in {1} {
+        \draw[-latex, draw=\colbase] (c\cnto)--(f\cntt);
+    }
+}
+
+
+% * yhat
+% \node[data=$0.3$] (yhat1) at (2.5,\ii - 20) {};
+\node[data=$0.3$] (yhat1) at (2.5,\ii - 14) {};
+\draw[-latex, draw=\colflow] (f1)--(yhat1);
+
+% -- Meta-Mesa Module  ----------------------------------------------------------------------------------------------------------------------------------
+% * data
+\foreach \ci in {3,4} {
+    \foreach \cj in {3,4,5,6,7} {
+        \node[data=\pgfmathparse{\qqqqa[\cj-1]}\pgfmathresult] at (\msjj+\cj,1-\ci) {};
+    }
+}
+\foreach \cj in {3,4,5,6,7} {
+    \path (\msjj+\cj,-4) -- (\msjj+\cj,-5) node [black, font=\large, midway, sloped, draw=none] {$\dots$};
+}
+\foreach \ci in {7} {
+    \foreach \cj in {3,4,5,6,7} {
+        \node[data=\pgfmathparse{\qqqqe[\cj-1]}\pgfmathresult] (msdata\cj) at (\msjj+\cj,1-\ci) {};
+    }
+}
+
+% *  neurons
+\draw[rounded corners, draw = black!30, fill = \colbg] (\msjj-1-0.4+2, \msii+0.8) rectangle (\msjj+11+0.4-2, \msii-3-0.8) {};
+\draw[rounded corners, draw = black!30, fill = \colbg] (\msjj-1-0.4, \msii-7+0.8) rectangle (\msjj+11+0.4, \msii-13-0.8) {};
+% \draw[rounded corners, draw = black!30, fill = \colbg] (\msjj-1-0.4, \msii+0.8) rectangle (\msjj+11+0.4, \msii-3+0.2) {};
+% \draw[rounded corners, draw = black!30, fill = \colbg] (\msjj-1-0.4, \msii-3-0.2) rectangle (\msjj+11+0.4, \msii-9-0.8) {};
+\foreach \cj in {3,4,5,6,7} {
+    \node[neuron] (msa\cj) at (\msjj+\cj,\msii) {};
+}
+\foreach \cj in {1,2} {
+    \node[neuron_ms] (msb\cj) at (3.5+\msjj+\cj,\msii-3) {};
+}
+\path (\msjj+8-1.5+0.1, \msii-3) --  (\msjj+11+0.4-0.3-1-1.5+0.1, \msii-3) node[midway,draw=none] {mesa module: \\ $\theta = \left(\mathbin{\textcolor{\colmstext}{ \theta^{(1)},...,\theta^{(M)} }}\right)q$};
+\foreach \cj in {1,2} {
+    \node[data=\pgfmathparse{\msms[\cj-1]}\pgfmathresult] (betams\cj) at (3.5+\msjj+\cj,\msii-5) {};
+}
+\draw [decorate,decoration={brace,amplitude=5pt,raise=4ex}](3.5+\msjj+2,\msii-5+0.4) -- (3.5+\msjj+2,\msii-5-0.4) node[midway,xshift=3em,draw=none](beta){$\theta$};
+\draw [decorate,decoration={brace,amplitude=5pt,raise=4ex}](\msjj-3-1,\msii+2+0.4) -- (\msjj-3-1,\msii+2-0.4) node[midway,xshift=3em,draw=none](beta){$x$};
+\draw [decorate,decoration={brace,amplitude=5pt,raise=4ex}](\msjj-5.5-1,\msii-20+0.4+6) -- (\msjj-5.5-1,\msii-20-0.4+6) node[midway,xshift=3em,draw=none](beta){$\hat{y}$};
+\draw [decorate,decoration={brace,amplitude=5pt,raise=4ex}](\msjj+9-2,\msii+2+0.4) -- (\msjj+9-2,\msii+2-0.4) node[midway,xshift=3em,draw=none](beta){$q$};
+\foreach \cj in {1,2} {
+    \node[neuron] (mtb\cj) at (3.5+\msjj+\cj,\msii-7) {};
+}
+\foreach \cj in {1,2,3} {
+    \node[neuron_mt] (msc\cj) at (3+\msjj+\cj,\msii-10) {};
+}
+\foreach \cj in {1,2,3,4,5,6,8,9,10,11,12,13} {
+    \node[neuron_mt] (msd\cj) at (-2+\msjj+\cj,\msii-13) {};
+}
+\path (-2+\msjj+6,\msii-15) -- (-2+\msjj+8,\msii-15) node [black, font=\large, midway, sloped, draw=none] {$\dots$};
+\path (\msjj+8-1.5+2.5, \msii-6-0.2-0.8) --  (\msjj+11+0.4-0.3-1-1.5+2.5, \msii-6-0.2-0.8) node[midway,draw=none] {meta module: \\ $\mathbin{\textcolor{\colbasetext}{\beta}} = g(\theta;\mathbin{\textcolor{\colmttext}{\omega}})$};
+
+% *  arrows
+\foreach \cnto in {3,4,5,6,7} {
+    \draw[-latex, draw=\colflow] (msdata\cnto)--(msa\cnto);
+}
+\foreach \cnto in {3,4,5,6,7} {
+    \foreach \cntt in {1,2} {
+        \draw[-latex, draw=\colms] (msa\cnto)--(msb\cntt);
+    }
+}
+\foreach \cntt in {1,2} {
+    \draw[-latex, draw=\colflow] (msb\cntt)--(betams\cntt);
+}
+\foreach \cntt in {1,2} {
+    \draw[-latex, draw=\colflow] (betams\cntt)--(mtb\cntt);
+}
+\foreach \cnto in {1,2} {
+    \foreach \cntt in {1,2,3} {
+        \draw[-latex, draw=\colmt] (mtb\cnto)--(msc\cntt);
+    }
+}
+\foreach \cnto in {1,2,3} {
+    \foreach \cntt in {1,2,3,4,5,6,8,9,10,11,12,13} {
+        \draw[-latex, draw=\colmt] (msc\cnto)--(msd\cntt);
+    }
+}
+
+% * theta
+\foreach \cj in {1,2,3,4,5,6,8,9,10,11,12,13} {
+    \node[databeta=\pgfmathparse{\mmmm[\cj-1]}\pgfmathresult] (theta\cj) at (-2+\msjj+\cj,\msii-15) {};
+}
+\foreach \cnto in {1,2,3,4,5,6,8,9,10,11,12,13} {
+    \draw[-latex, draw=\colflow] (msd\cnto)--(theta\cnto);
+}
+\path (-2+\msjj+6,\msii-13) -- (-2+\msjj+8,\msii-13) node [black, font=\large, midway, sloped, draw=none] {$\dots$};
+\draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=4ex}](-2+\msjj+0.6,\msii-15+0.4) -- (-2+\msjj+13.4,\msii-15+0.4) node[midway,yshift=-3em,draw=none](beta){$\mathbin{\textcolor{\colbasetext}{\beta}}$};
+% \draw[-latex, draw=\colflow] (beta.south)--(-2+\msjj+7,\ii-20)--(-2+\msjj-1,\ii-20)--(-2+\msjj-1,\ii-18-0.8);
+\draw[-latex, draw=\colflow] (beta.west)--(-2+\msjj-1,\ii-20+3.2+0.4)--(-2+\msjj-1,\ii-18-0.8+6);
+\end{tikzpicture}
+\end{document}
+

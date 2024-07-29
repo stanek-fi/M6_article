@@ -1,0 +1,15 @@
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.spl
+*.synctex.gz
+*.synctex(busy)
+*.pdf
+outputs\plots
+*.png
+*.rds
+.vscode\
